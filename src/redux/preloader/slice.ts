@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLoading: false as boolean
+  isLoading: false as boolean,
 };
 
 const preloaderSlice = createSlice({

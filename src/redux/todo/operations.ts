@@ -1,7 +1,7 @@
-import axios, { AxiosError } from "axios";
-import { instance } from "./../axiosConfig";
-import { toast } from "react-hot-toast";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
+import { setLoading } from "../preloader/slice";
+import { instance } from "./../axiosConfig";
 import {
   completeTask,
   createTask,
@@ -9,7 +9,6 @@ import {
   editTask,
   fetchTasks,
 } from "./slice";
-import { setLoading } from "../preloader/slice";
 
 export interface TodoList {
   userId?: number;
@@ -17,7 +16,7 @@ export interface TodoList {
   title?: string;
   completed?: boolean;
 }
-//!Toaster!!!
+
 export const fetchTasksThunk = createAsyncThunk(
   "todo/fetchTodoList",
   async (_, { dispatch }) => {
@@ -38,16 +37,13 @@ export const fetchTasksThunk = createAsyncThunk(
 export const addTaskThunk = createAsyncThunk(
   "todo/addTodoList",
   async (value: TodoList, { dispatch }) => {
-    console.log(value);
     dispatch(setLoading({ isLoading: true }));
     try {
       const res = await instance.post<TodoList>("todos", value);
-
       const taskWithCustomId: TodoList = {
         ...res.data,
         id: Date.now(),
       };
-
       dispatch(createTask({ task: taskWithCustomId }));
     } catch (err) {
       if (err instanceof Error) {
@@ -80,10 +76,8 @@ export const editTaskThunk = createAsyncThunk(
   "todo/editTodoList",
   async (value: TodoList, { dispatch }) => {
     dispatch(setLoading({ isLoading: true }));
-    console.log(value.id);
     try {
       const res = await instance.put<TodoList>(`todos/${value.id}`, value);
-
       dispatch(editTask({ task: res.data }));
     } catch (err) {
       if (err instanceof Error) {

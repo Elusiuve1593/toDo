@@ -33,7 +33,6 @@ export const Pagination = ({
   const onClickPreviousPageHandler = () => {
     dispatch(previousPage());
   };
-
   const onClickPaginateNumberHandler = (pageNumber: number) => {
     dispatch(setCurrentPage({ pageNumber }));
   };

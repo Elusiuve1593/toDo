@@ -7,7 +7,7 @@ export interface Pagination {
 
 const initialState: Pagination = {
   page: 1,
-  tasksPerPage: 10,
+  tasksPerPage: 12,
 };
 
 const paginationSlice = createSlice({
@@ -26,5 +26,6 @@ const paginationSlice = createSlice({
   },
 });
 
-export const { setCurrentPage, nextPage, previousPage } = paginationSlice.actions;
+export const { setCurrentPage, nextPage, previousPage } =
+  paginationSlice.actions;
 export default paginationSlice.reducer;

@@ -13,20 +13,21 @@ import { TodoContainer } from "./Todo.styled";
 import { currentTaskPage, tasksPerPage } from "../../redux/pagination/selector";
 import { Pagination } from "../Pagination/Pagination";
 import toast from "react-hot-toast";
+import { preloader } from "../../redux/preloader/selector";
 
 export const Todo = () => {
   const todoList = useSelector(fetchTodo);
+  const isLoading = useSelector(preloader);
   const dispatch: AppDispatch = useDispatch();
 
   const [titleValue, setTitleValue] = useState<string>("");
   const [editTitle, setEditTitle] = useState<string>("");
-  const [editMode, setEditMode] = useState<number | null>(null);
   const [isCompleted, setCompleted] = useState<{ [key: number]: boolean }>();
+  const [editMode, setEditMode] = useState<number | null>(null);
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitleValue(event.currentTarget.value);
   };
-
   const editTitleHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditTitle(event.currentTarget.value);
   };
@@ -54,7 +55,7 @@ export const Todo = () => {
 
   const updateTaskHandler = (id: number) => {
     if (!editTitle) {
-      return toast("Put a message, please")
+      return toast("Put a message, please");
     }
     const value = {
       id: id,
@@ -88,9 +89,10 @@ export const Todo = () => {
   useEffect(() => {
     dispatch(fetchTasksThunk());
   }, []);
-
   return (
     <TodoContainer>
+      {isLoading && <div style={{ color: "blue" }}>Loading...</div>}
+      
       <input
         type="text"
         autoFocus
@@ -104,7 +106,7 @@ export const Todo = () => {
       </button>
 
       {currentPage.map(({ id, title }, index) => (
-        <div key={index}>
+        <div key={id}>
           <input
             type="checkbox"
             checked={(isCompleted && isCompleted[id]) || false}
