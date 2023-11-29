@@ -1,8 +1,12 @@
 import { ThunkAction, configureStore, Action } from "@reduxjs/toolkit";
 import todo from "./todo/slice";
+import pagination from "./pagination/slice";
+import preloader from "./preloader/slice";
 
 const reducer = {
   todo,
+  pagination,
+  preloader,
 };
 
 const store = configureStore({

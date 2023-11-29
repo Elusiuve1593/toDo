@@ -1,58 +1,113 @@
-//import { toast } from 'react-hot-toast';
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-// import { emailInfo } from '../reset_pass/slice';
-// import { style } from 'src/shared/styles/yup/style';
+import { instance } from "./../axiosConfig";
+import { toast } from "react-hot-toast";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  completeTask,
+  createTask,
+  deleteTask,
+  editTask,
+  fetchTasks,
+} from "./slice";
+import { setLoading } from "../preloader/slice";
 
-
-export interface RegistrationInfo {
-    email: string
-    username: string
-    image: string
-    id: number
-    role: string
-    emailVerified: boolean
-    isActive: boolean
-    createdAt: string
-    updatedAt: string
-    status: "idle" | "loading" | "succeeded" | "failed"
-    error: string | null | undefined
+export interface TodoList {
+  userId?: number;
+  id: number;
+  title?: string;
+  completed?: boolean;
 }
-
-interface CreateRegistrationParams {
-    email: string
-    password: string
-}
-
-export const createRegistration = createAsyncThunk<
-    RegistrationInfo,
-    CreateRegistrationParams,
-    {
-        rejectValue: string
+//!Toaster!!!
+export const fetchTasksThunk = createAsyncThunk(
+  "todo/fetchTodoList",
+  async (_, { dispatch }) => {
+    dispatch(setLoading({ isLoading: true }));
+    try {
+      const res = await instance.get<TodoList[]>("todos");
+      dispatch(fetchTasks({ todo: res.data }));
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
+    } finally {
+      dispatch(setLoading({ isLoading: false }));
     }
->(
-    "registration/createRegistration",
-    async (param, { rejectWithValue, dispatch }) => {
-        try {
-            const url = "https://balancy-backend-demo.onrender.com/auth/register"
-            const res = await axios.post<RegistrationInfo>(`${url}`, param)
-            // dispatch(emailInfo(param.email))
+  }
+);
 
-            return res.data
-        } catch (err: any) {
-            if (axios.isAxiosError(err)) {
-                const axiosError = err as AxiosError<any>
-                if (axiosError.response?.data) {
-                    // toast.error(axiosError.response?.data.message, { style })
-                }
-                if (axiosError.message === "Network Error") {
-                    // toast.error(axiosError.message, { style })
-                }
-                return rejectWithValue(err.response?.data)
-            }
-            return rejectWithValue(err.message)
-        } finally {
+export const addTaskThunk = createAsyncThunk(
+  "todo/addTodoList",
+  async (value: TodoList, { dispatch }) => {
+    console.log(value);
+    dispatch(setLoading({ isLoading: true }));
+    try {
+      const res = await instance.post<TodoList>("todos", value);
 
-        }
+      const taskWithCustomId: TodoList = {
+        ...res.data,
+        id: Date.now(),
+      };
+
+      dispatch(createTask({ task: taskWithCustomId }));
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
+    } finally {
+      dispatch(setLoading({ isLoading: false }));
     }
-)
+  }
+);
+
+export const deleteTaskThunk = createAsyncThunk(
+  "todo/deleteTodoList",
+  async (id: number, { dispatch }) => {
+    dispatch(setLoading({ isLoading: true }));
+    try {
+      await instance.delete<TodoList>(`todos/${id}`);
+      dispatch(deleteTask({ id }));
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
+    } finally {
+      dispatch(setLoading({ isLoading: false }));
+    }
+  }
+);
+
+export const editTaskThunk = createAsyncThunk(
+  "todo/editTodoList",
+  async (value: TodoList, { dispatch }) => {
+    dispatch(setLoading({ isLoading: true }));
+    console.log(value.id);
+    try {
+      const res = await instance.put<TodoList>(`todos/${value.id}`, value);
+
+      dispatch(editTask({ task: res.data }));
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
+    } finally {
+      dispatch(setLoading({ isLoading: false }));
+    }
+  }
+);
+
+export const isCompletedTaskThunk = createAsyncThunk(
+  "todo/isCompletedTaskThunk",
+  async (value: TodoList, { dispatch }) => {
+    dispatch(setLoading({ isLoading: true }));
+    try {
+      const res = await instance.put<TodoList>(`todos/${value.id}`, value);
+      dispatch(completeTask({ isDone: res.data }));
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
+    } finally {
+      dispatch(setLoading({ isLoading: false }));
+    }
+  }
+);

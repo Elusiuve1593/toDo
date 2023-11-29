@@ -1,4 +1,4 @@
 import type { RootState } from '../store';
 
-export const select = (state: RootState) => state.todo;
+export const fetchTodo = (state: RootState) => state.todo;
 
