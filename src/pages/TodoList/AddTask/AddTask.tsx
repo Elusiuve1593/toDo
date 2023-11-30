@@ -8,6 +8,7 @@ import {
   AddTaskContainer,
   Button,
   Input,
+  Line,
   TaskContainer,
 } from "./AddTask.styled";
 
@@ -48,10 +49,10 @@ export const AddTask = () => {
           onChange={onChangeHandler}
           onKeyDown={handleKeyDown}
         />
-
         <Button type="button" onClick={addTaskHandler}>
           <CiSquarePlus size={36} color="#FF7F50" />
         </Button>
+        <Line />
       </TaskContainer>
     </AddTaskContainer>
   );

@@ -9,6 +9,7 @@ import { TodoList } from "../../redux/todo/operations";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import {
   Button,
+  Line,
   PaginationButton,
   PaginationContainer,
   PaginationSpan,
@@ -67,6 +68,8 @@ export const Pagination = ({
           </PaginationButton>
         </PaginationSpan>
       ))}
+      
+      <Line />
 
       <Button
         disabled={page >= Math.ceil(todoList.length / taskPage)}

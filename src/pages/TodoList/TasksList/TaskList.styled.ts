@@ -6,12 +6,16 @@ interface TitleProps {
 
 export const TaskListContainer = styled.div`
   padding: 10px;
+  margin-bottom: 10px;
 `;
 
 export const TasksContainer = styled.div`
   display: flex;
   align-items: center;
   height: 60px;
+  @media (max-width: 450px) {
+    height: 30%;
+  }
 `;
 
 export const CheckBox = styled.input`
@@ -25,6 +29,9 @@ export const EditInput = styled.input`
   margin: 0px 10px;
   max-width: 500px;
   height: 27px;
+  @media (max-width: 450px) {
+    max-width: 118px;
+  }
 `;
 
 export const Title = styled.div<TitleProps>`

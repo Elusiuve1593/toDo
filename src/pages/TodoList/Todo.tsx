@@ -12,12 +12,12 @@ import { TodoContainer } from "./Todo.styled";
 
 export const Todo = () => {
   const todoList = useSelector(fetchTodo);
+  const taskPage: number = useSelector(tasksPerPage);
+  const page: number = useSelector(currentTaskPage);
   const dispatch: AppDispatch = useDispatch();
 
-  const taskPage = useSelector(tasksPerPage);
-  const page = useSelector(currentTaskPage);
-  const lastTaskPage = page * taskPage;
-  const firstTaskPage = lastTaskPage - taskPage;
+  const lastTaskPage: number = page * taskPage;
+  const firstTaskPage: number = lastTaskPage - taskPage;
   const currentPage = todoList.slice(firstTaskPage, lastTaskPage);
 
   useEffect(() => {
@@ -26,11 +26,8 @@ export const Todo = () => {
   return (
     <TodoContainer>
       <Preloader />
-
       <AddTask />
-
       <TasksList currentPage={currentPage} />
-
       <Pagination
         todoList={todoList}
         taskPage={taskPage}

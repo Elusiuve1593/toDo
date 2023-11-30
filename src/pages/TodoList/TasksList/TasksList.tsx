@@ -66,9 +66,12 @@ export const TasksList = ({ currentPage }: TasksListInterface) => {
     setEditTitle("");
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (id: number, event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Escape") {
       setEditMode(null);
+    }
+    if (event.key === "Enter") {
+      updateTaskHandler(id)
     }
   };
 
@@ -97,7 +100,8 @@ export const TasksList = ({ currentPage }: TasksListInterface) => {
               type="text"
               value={editTitle}
               onChange={editTitleHandler}
-              onKeyDown={handleKeyDown}
+              onKeyDown={(event) => handleKeyDown(id, event)}
+              
             />
           ) : (
             <Title isCompleted={isCompleted && isCompleted[id]}>{title}</Title>

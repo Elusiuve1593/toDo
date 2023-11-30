@@ -5,6 +5,7 @@ interface PageProps {
 }
 
 export const PaginationContainer = styled.div`
+  position: relative;
   padding: 25px;
   display: flex;
   justify-content: center;
@@ -33,4 +34,21 @@ export const PaginationButton = styled.button<PageProps>`
   padding: 10px 10px 5px 10px;
   font-weight: ${(props) => (props.active ? "bold" : "normal")};
   font-size: ${(props) => (props.active ? "19px" : "16.5px")};
+`;
+
+export const Line = styled.div`
+  position: absolute;
+  opacity: 0.6;
+  top: 0px;
+  left: 10px;
+  width: 30%;
+  height: 2px;
+  background-color: #FF7F50;
+  content: "";
+  @media (max-width: 767.98px) {
+    /* width: 50%; */
+    /* top: 70px; */
+    left: 25%;
+    width: 45%;
+  }
 `;

@@ -18,17 +18,14 @@ export const Container = styled.div`
   padding: 0 15px;
   @media (max-width: 1330px) {
     max-width: 970px;
-    //background-color: red;
   }
 
   @media (max-width: 991.98px) {
     max-width: 750px;
-    //background-color: blue;
   }
 
   @media (max-width: 767.98px) {
     max-width: none;
     margin: 0px 15px;
-    //background-color: yellow;
   }
 `;
