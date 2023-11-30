@@ -7,6 +7,12 @@ import {
 import { AppDispatch } from "../../redux/store";
 import { TodoList } from "../../redux/todo/operations";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import {
+  Button,
+  PaginationButton,
+  PaginationContainer,
+  PaginationSpan,
+} from "./Pagination.styled";
 
 interface PaginationInterface {
   todoList: TodoList[];
@@ -37,43 +43,37 @@ export const Pagination = ({
     dispatch(setCurrentPage({ pageNumber }));
   };
   const onClickNextPageHandler = () => {
-    dispatch(nextPage());
+    if (page < Math.ceil(todoList.length / taskPage)) {
+      dispatch(nextPage());
+    }
   };
   return (
-    <div>
-      <button
+    <PaginationContainer>
+      <Button
         disabled={firstTaskPage === 0}
         onClick={onClickPreviousPageHandler}
       >
-        <svg style={{ width: "20px", height: "20px" }}>{<FaChevronLeft />}</svg>
-      </button>
+        <FaChevronLeft size={20} />
+      </Button>
 
       {pageNumbers.map((pageNumber) => (
-        <span
-          style={
-            page === pageNumber
-              ? {
-                  color: "#5876c5",
-                  fontSize: "17.5px",
-                  borderBottom: "3px solid #5876c5",
-                  fontWeight: "bolder",
-                }
-              : { color: "#70778b" }
-          }
+        <PaginationSpan
+          active={page === pageNumber}
           key={pageNumber}
           onClick={() => onClickPaginateNumberHandler(pageNumber)}
         >
-          <button>{pageNumber}</button>
-        </span>
+          <PaginationButton active={page === pageNumber}>
+            {pageNumber}
+          </PaginationButton>
+        </PaginationSpan>
       ))}
-      <button
-        disabled={todoList.length === lastTaskPage}
+
+      <Button
+        disabled={page >= Math.ceil(todoList.length / taskPage)}
         onClick={onClickNextPageHandler}
       >
-        <svg style={{ width: "20px", height: "20px" }}>
-          {<FaChevronRight />}
-        </svg>
-      </button>
-    </div>
+        <FaChevronRight size={20} />
+      </Button>
+    </PaginationContainer>
   );
 };
