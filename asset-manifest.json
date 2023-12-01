@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/todo/static/css/main.e6c13ad2.css",
+    "main.js": "/todo/static/js/main.40e1abc4.js",
+    "static/media/Spinner.gif": "/todo/static/media/Spinner.d7963bb21ea7aa273c7f.gif",
+    "index.html": "/todo/index.html",
+    "main.e6c13ad2.css.map": "/todo/static/css/main.e6c13ad2.css.map",
+    "main.40e1abc4.js.map": "/todo/static/js/main.40e1abc4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.40e1abc4.js"
+  ]
+}
