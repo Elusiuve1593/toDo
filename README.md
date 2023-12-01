@@ -1,46 +1,48 @@
-# Getting Started with Create React App
+# React TODO App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation and Launch
 
-## Available Scripts
+### Prerequisites:
+- Node.js and Yarn installed on your machine. [Download Yarn](https://yarnpkg.com/)
 
-In the project directory, you can run:
+### Steps:
 
-### `yarn start`
+1. **Clone the Repository:**
+   git clone [repository_url] todo
+   cd todo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Install Dependencies:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+yarn install
 
-### `yarn test`
+### Run the Project:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+yarn start
 
-### `yarn build`
+This command will start the development server, and your React TODO app will be accessible at http://localhost:3000 in your web browser.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Available Scripts:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Start Development Server:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+yarn start
 
-### `yarn eject`
+### Build for Production:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+yarn build
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Run Tests:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+yarn test
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Eject from Create React App:
 
-## Learn More
+yarn eject
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Notes:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Make sure your machine has an active internet connection during the initial yarn install to download the required packages.
+
+- Ensure that the specified scripts in the package.json file are correctly configured for your project.
+
+- These instructions assume that your project is using Create React App and the specified dependencies in your package.json. If you encounter any issues, please check for error messages in the terminal and resolve them accordingly.
